@@ -2,6 +2,18 @@
 
 Container image for **bench and debug workloads** on [llm-d](https://llm-d.ai/) Kubernetes deployments ([source](https://github.com/llm-d/llm-d)). The pod stays idle (`sleep infinity`) so you can `kubectl exec` into it and run **vLLM CLI** commands—for example `vllm bench`—against your **in-cluster inference gateway**, without scheduling a GPU on this pod.
 
+**Source:** [github.com/rajkiranjoshi/poker](https://github.com/rajkiranjoshi/poker)
+
+## Published image (Quay)
+
+CI builds this repository on [Quay](https://quay.io/repository/rajjoshi/poker). After a successful build, pull the image (default tag is usually `latest`; your Quay trigger may also publish branch or Git SHA tags):
+
+```bash
+docker pull quay.io/rajjoshi/poker:latest
+```
+
+In Kubernetes, set the container image to `quay.io/rajjoshi/poker:<tag>`. If the repository is private, use a [Quay robot account](https://docs.quay.io/glossary/robot-accounts.html) and a `kubernetes.io/dockerconfigjson` pull secret in the workload namespace.
+
 ## What is in the image
 
 - **Python** (default 3.12) on Debian Bookworm  

@@ -18,6 +18,7 @@ In Kubernetes, set the container image to `quay.io/rajjoshi/poker:<tag>`. If the
 
 - **Python** (default 3.12) on Debian Bookworm  
 - **vLLM** (default 0.19.1) with the **`bench` extra** (`vllm[bench]`), so `vllm bench` matches the [benchmark CLI](https://docs.vllm.ai/en/latest/benchmarking/cli/) for that release  
+- **[just](https://github.com/casey/just)** (pinned release)—run `just` / `just --list` against a `Justfile` in `/workspace` (mount a ConfigMap or repo there in Kubernetes)  
 - **kubectl** (Linux amd64), **curl**, **jq**—useful for discovering Services, gateways, or endpoints from inside the cluster  
 - **Working directory**: `/workspace`
 
@@ -31,10 +32,12 @@ docker build -t poker:latest .
 
 Override versions with build args:
 
-| Build arg        | Default | Description        |
-|------------------|---------|--------------------|
-| `PYTHON_VERSION` | `3.12`  | Base Python image |
-| `VLLM_VERSION`   | `0.19.1` | Installed vLLM    |
+| Build arg        | Default  | Description |
+|------------------|----------|-------------|
+| `PYTHON_VERSION` | `3.12`   | Base Python image |
+| `VLLM_VERSION`   | `0.19.1` | Installed vLLM (`vllm[bench]`) |
+| `JUST_VERSION`   | `1.50.0` | [just](https://github.com/casey/just) release (Linux musl asset) |
+| `TARGETARCH`     | `amd64`  | `amd64` → x86_64 binary, `arm64` → aarch64 (BuildKit sets this automatically) |
 
 Example:
 
